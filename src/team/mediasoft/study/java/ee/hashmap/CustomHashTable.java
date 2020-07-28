@@ -61,6 +61,10 @@ public class CustomHashTable<K,V> {
         }
     }
 
+    public Set<K> keySet() {
+        return new KeySet();
+    }
+
     private int getThreshold() { //порог заполнения
         return (int)(arraySize * loadFactor);
     }
@@ -85,10 +89,6 @@ public class CustomHashTable<K,V> {
             }
         }
         hashArray = newHashArray;
-    }
-
-    public Set<K> keySet() {
-        return new KeySet();
     }
 
     private class KeySet extends AbstractSet<K> {

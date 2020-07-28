@@ -112,7 +112,7 @@ public class CustomHashMap<K,V> {
             table.clear();
         }
 
-        private class EntryIterator<E> implements Iterator<Map.Entry<K,V>> {
+        private class EntryIterator<K,V> implements Iterator<Map.Entry<K,V>> {
             private Map.Entry<K,V> current;
             private Set<K> keySet = table.keySet();
             private Iterator<K> keyIterator;
