@@ -1,17 +1,17 @@
 package team.mediasoft.study.java.ee.hashmap;
 
-public class CustomLinkedList<K, V> {
+public class CustomLinkedList<K,V> {
     private int size = 0;
     private Node first;
     private Node last;
 
     CustomLinkedList() {}
 
-    public void add(ListNode<K, V> e) {
+    public void add(ListNode<K,V> e) {
         linkLast(e);
     }
 
-    public void add(int index, ListNode<K, V> element) {
+    public void add(int index, ListNode<K,V> element) {
         checkElementIndex(index);
         if (index == size)
             linkLast(element);
@@ -19,13 +19,13 @@ public class CustomLinkedList<K, V> {
             linkBefore(element, getNodeByIndex(index));
     }
 
-    public ListNode<K, V> get(int index) {
+    public ListNode<K,V> get(int index) {
         checkElementIndex(index);
         CustomLinkedList.Node node = getNodeByIndex(index);
         return new ListNode(node.key, node.value);
     }
 
-    public ListNode<K, V> get(K key) {
+    public ListNode<K,V> getByKey(K key) {
         if (!contains(key))
             return null;
         int index = indexOf(key);
@@ -38,7 +38,7 @@ public class CustomLinkedList<K, V> {
         return (index == -1) ? false : true;
     }
 
-    public boolean contains(ListNode<K, V> o) {
+    public boolean contains(ListNode<K,V> o) {
         return contains(o.getKey());
     }
 
@@ -47,20 +47,12 @@ public class CustomLinkedList<K, V> {
         unlink(getNodeByIndex(index));
     }
 
-    public void remove(Object key) {
-        if (key == null) {
-            for (CustomLinkedList.Node x = first; x != null; x = x.next) {
-                if (x.key == null) {
-                    unlink(x);
-                }
-            }
-        } else {
-            for (CustomLinkedList.Node x = first; x != null; x = x.next) {
+    public void removeByKey(K key) {
+        for (CustomLinkedList.Node x = first; x != null; x = x.next) {
                 if (key.equals(x.key)) {
                     unlink(x);
                 }
             }
-        }
     }
 
     public void displayList()
@@ -79,13 +71,13 @@ public class CustomLinkedList<K, V> {
         return size;
     }
 
-    private class Node<K, V> {
+    private class Node<K,V> {
         K key;
         V value;
         CustomLinkedList.Node next;
         CustomLinkedList.Node prev;
 
-        Node(CustomLinkedList.Node prev, ListNode<K, V> element, CustomLinkedList.Node next) {
+        Node(CustomLinkedList.Node prev, ListNode<K,V> element, CustomLinkedList.Node next) {
             this.key = element.getKey();
             this.value = element.getValue();
             this.next = next;
@@ -104,7 +96,7 @@ public class CustomLinkedList<K, V> {
         return x;
     }
 
-    private void linkLast(ListNode<K, V> element) {
+    private void linkLast(ListNode<K,V> element) {
         final CustomLinkedList.Node l = last;
         final CustomLinkedList.Node newNode = new CustomLinkedList.Node(l, element, null);
         last = newNode;
@@ -115,7 +107,7 @@ public class CustomLinkedList<K, V> {
         size++;
     }
 
-    private void linkBefore(ListNode<K, V> element, CustomLinkedList.Node succ) {
+    private void linkBefore(ListNode<K,V> element, CustomLinkedList.Node succ) {
         final CustomLinkedList.Node pred = succ.prev;
         final CustomLinkedList.Node newNode = new CustomLinkedList.Node(pred, element, succ);
         succ.prev = newNode;
@@ -131,8 +123,7 @@ public class CustomLinkedList<K, V> {
             throw new IndexOutOfBoundsException("index " + index + " is out of bounds");
     }
 
-    private Object unlink(CustomLinkedList.Node x) {
-        final Object key = x.key;
+    private CustomLinkedList.Node unlink(CustomLinkedList.Node x) {
         final CustomLinkedList.Node next = x.next;
         final CustomLinkedList.Node prev = x.prev;
 
@@ -153,23 +144,15 @@ public class CustomLinkedList<K, V> {
         x.key = null;
         x.value = null;
         size--;
-        return key;
+        return x;
     }
 
-    private int indexOf(Object key) {
+    private int indexOf(K key) {
         int index = 0;
-        if (key == null) {
-            for (CustomLinkedList.Node x = first; x != null; x = x.next) {
-                if (x.key == null)
-                    return index;
-                index++;
-            }
-        } else {
-            for (CustomLinkedList.Node x = first; x != null; x = x.next) {
-                if (key.equals(x.key))
-                    return index;
-                index++;
-            }
+        for (CustomLinkedList.Node x = first; x != null; x = x.next) {
+            if (key.equals(x.key))
+                return index;
+            index++;
         }
         return -1;
     }

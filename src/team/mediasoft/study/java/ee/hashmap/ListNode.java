@@ -1,6 +1,7 @@
 package team.mediasoft.study.java.ee.hashmap;
 
 import java.util.Map;
+import java.util.Objects;
 
 public class ListNode<K, V> implements Map.Entry<K, V> {
     private K key;
@@ -28,5 +29,4 @@ public class ListNode<K, V> implements Map.Entry<K, V> {
         this.value = value;
         return value;
     }
-
 }

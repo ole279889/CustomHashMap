@@ -2,7 +2,7 @@ package team.mediasoft.study.java.ee.hashmap;
 
 import java.util.*;
 
-public class CustomHashTable<K, V> {
+public class CustomHashTable<K,V> {
     private CustomLinkedList[] hashArray;
     private int arraySize = 10;
     private int count = 0;
@@ -19,7 +19,7 @@ public class CustomHashTable<K, V> {
         return Math.abs(key % arraySize);
     }
 
-    public void insert(ListNode<K, V> e) {
+    public void insert(ListNode<K,V> e) {
         if (count >= getThreshold())
             rehash();
         int key = e.getKey().hashCode();
@@ -31,13 +31,14 @@ public class CustomHashTable<K, V> {
     public void delete(Object key) {
         int hashVal = hashFunc(key.hashCode());
         CustomLinkedList list = hashArray[hashVal];
-        list.remove(key);
+        list.removeByKey(key);
+        count--;
     }
 
-    public ListNode<K, V> find(Object key) {
+    public ListNode<K,V> find(Object key) {
         int hashVal = hashFunc(key.hashCode());
         CustomLinkedList list = hashArray[hashVal];
-        return list.get(key);
+        return list.getByKey(key);
     }
 
     public void displayTable() {
@@ -92,23 +93,28 @@ public class CustomHashTable<K, V> {
 
     private class KeySet extends AbstractSet<K> {
 
+        @Override
         public Iterator<K> iterator() {
             return new TableKeyIterator();
         }
 
+        @Override
         public int size() {
             return count;
         }
 
+        @Override
         public boolean contains(Object o) {
             return containsKey(o);
         }
 
+        @Override
         public boolean remove(Object key) {
             delete(key);
             return true;
         }
 
+        @Override
         public void clear() {
             clear();
         }
@@ -116,13 +122,12 @@ public class CustomHashTable<K, V> {
 
     private class TableKeyIterator implements Iterator<K> {
 
-        private int currentKeyIndex = 0;
+        private int currentKeyIndex = -1;
         private K current;
         private ArrayList<K> allKeys;
 
         TableKeyIterator() {
             allKeys = getAllKeys();
-            current = allKeys.get(0);
         }
 
         @Override
@@ -136,6 +141,7 @@ public class CustomHashTable<K, V> {
             if (hasNext()) {
                 currentKeyIndex++;
                 current = allKeys.get(currentKeyIndex);
+                result = current;
             }
             return result;
         }

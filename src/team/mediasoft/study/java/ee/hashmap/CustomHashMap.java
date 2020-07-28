@@ -2,14 +2,14 @@ package team.mediasoft.study.java.ee.hashmap;
 
 import java.util.*;
 
-public class CustomHashMap<K, V> {
+public class CustomHashMap<K,V> {
 
     private CustomHashTable table = new CustomHashTable();
 
     CustomHashMap() {}
 
-    public Object get(K key) {
-        return table.find(key).getValue();
+    public ListNode<K,V> get(K key) {
+        return table.find(key);
     }
 
     public void put(K key, V value) {
@@ -23,7 +23,7 @@ public class CustomHashMap<K, V> {
         }
     }
 
-    public void remove(K key) {
+    public void remove(Object key) {
         table.delete(key);
     }
 
@@ -33,7 +33,7 @@ public class CustomHashMap<K, V> {
         return table.keySet();
     }
 
-    public Set<Map.Entry<K, V>> entrySet() {
+    public Set<Map.Entry<K,V>> entrySet() {
         return new EntrySet<Node<K,V>>();
     };
 
@@ -45,7 +45,7 @@ public class CustomHashMap<K, V> {
         table.displayTable();
     }
 
-    static class Node<K,V> extends ListNode<K, V> {
+    static class Node<K,V> extends ListNode<K,V> {
         private K key;
         private V value;
 
@@ -86,8 +86,8 @@ public class CustomHashMap<K, V> {
         }
 
         @Override
-        public boolean contains(Object key) {
-            return table.find(key) != null;
+        public boolean contains(Object o) {
+            return table.find(o) != null;
         }
 
         @Override
@@ -103,7 +103,7 @@ public class CustomHashMap<K, V> {
 
         @Override
         public boolean remove(Object o) {
-            remove(o);
+            CustomHashMap.this.remove(o);
             return true;
         }
 
@@ -119,7 +119,6 @@ public class CustomHashMap<K, V> {
 
             EntryIterator() {
                 keyIterator = keySet.iterator();
-                current = table.find(keyIterator.next());
             }
 
             @Override
@@ -133,6 +132,7 @@ public class CustomHashMap<K, V> {
                 if (hasNext()) {
                     K key = keyIterator.next();
                     current = table.find(key);
+                    result = current;
                 }
                 return result;
             }
