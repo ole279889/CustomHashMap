@@ -60,7 +60,7 @@ public class Test {
         System.out.println("entrySet contains 45: " + es.contains(45));
         System.out.println("entrySet contains 145: " + es.contains(145));
 
-        es.add(new ListNode<Integer, String>(111, "newVal"));
+        es.add(new MapNode<Integer, String>(111, "newVal"));
 
         Iterator<Map.Entry<Integer,String>> itr = es.iterator();
         while (itr.hasNext()) {

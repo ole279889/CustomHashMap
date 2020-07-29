@@ -2,13 +2,13 @@ package team.mediasoft.study.java.ee.hashmap;
 
 import java.util.Map;
 
-public class ListNode<K, V> implements Map.Entry<K, V> {
+public class MapNode<K, V> implements Map.Entry<K, V> {
     private K key;
     private V value;
 
-    ListNode() {}
+    MapNode() {}
 
-    ListNode(K key, V value) {
+    MapNode(K key, V value) {
         this.key = key;
         this.value = value;
     }

@@ -8,7 +8,7 @@ public class CustomHashMap<K,V> {
 
     CustomHashMap() {}
 
-    public ListNode<K,V> get(K key) {
+    public MapNode<K,V> get(K key) {
         return table.find(key);
     }
 
@@ -19,7 +19,7 @@ public class CustomHashMap<K,V> {
         } else if (allKeys.contains(key)) {
             System.out.print("Cannot put duplicate key '" + key + "'");
         } else {
-            table.insert(new ListNode<K,V>(key, value));
+            table.insert(new MapNode<K,V>(key, value));
         }
     }
 
@@ -34,7 +34,7 @@ public class CustomHashMap<K,V> {
     }
 
     public Set<Map.Entry<K,V>> entrySet() {
-        return new EntrySet<Node<K,V>>();
+        return new EntrySet<MapNode<K,V>>();
     };
 
     public int size() {
@@ -43,32 +43,6 @@ public class CustomHashMap<K,V> {
 
     public void displayTable() {
         table.displayTable();
-    }
-
-    static class Node<K,V> extends ListNode<K,V> {
-        private K key;
-        private V value;
-
-        Node(K key, V value) {
-            this.key = key;
-            this.value = value;
-        }
-
-        @Override
-        public K getKey() {
-            return key;
-        }
-
-        @Override
-        public V getValue() {
-            return value;
-        }
-
-        @Override
-        public V setValue(V value) {
-            this.value = value;
-            return value;
-        }
     }
 
     private class EntrySet<E> extends AbstractSet<Map.Entry<K,V>> {

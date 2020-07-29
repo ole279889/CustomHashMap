@@ -7,11 +7,11 @@ public class CustomLinkedList<K,V> {
 
     CustomLinkedList() {}
 
-    public void add(ListNode<K,V> e) {
+    public void add(MapNode<K,V> e) {
         linkLast(e);
     }
 
-    public void add(int index, ListNode<K,V> element) {
+    public void add(int index, MapNode<K,V> element) {
         checkElementIndex(index);
         if (index == size)
             linkLast(element);
@@ -19,18 +19,18 @@ public class CustomLinkedList<K,V> {
             linkBefore(element, getNodeByIndex(index));
     }
 
-    public ListNode<K,V> get(int index) {
+    public MapNode<K,V> get(int index) {
         checkElementIndex(index);
         CustomLinkedList.Node node = getNodeByIndex(index);
-        return new ListNode(node.key, node.value);
+        return new MapNode(node.key, node.value);
     }
 
-    public ListNode<K,V> getByKey(K key) {
+    public MapNode<K,V> getByKey(K key) {
         if (!contains(key))
             return null;
         int index = indexOf(key);
         CustomLinkedList.Node node = getNodeByIndex(index);
-        return new ListNode(node.key, node.value);
+        return new MapNode(node.key, node.value);
     }
 
     public boolean contains(K key) {
@@ -38,7 +38,7 @@ public class CustomLinkedList<K,V> {
         return (index == -1) ? false : true;
     }
 
-    public boolean contains(ListNode<K,V> o) {
+    public boolean contains(MapNode<K,V> o) {
         return contains(o.getKey());
     }
 
@@ -77,7 +77,7 @@ public class CustomLinkedList<K,V> {
         CustomLinkedList.Node next;
         CustomLinkedList.Node prev;
 
-        Node(CustomLinkedList.Node prev, ListNode<K,V> element, CustomLinkedList.Node next) {
+        Node(CustomLinkedList.Node prev, MapNode<K,V> element, CustomLinkedList.Node next) {
             this.key = element.getKey();
             this.value = element.getValue();
             this.next = next;
@@ -96,7 +96,7 @@ public class CustomLinkedList<K,V> {
         return x;
     }
 
-    private void linkLast(ListNode<K,V> element) {
+    private void linkLast(MapNode<K,V> element) {
         final CustomLinkedList.Node l = last;
         final CustomLinkedList.Node newNode = new CustomLinkedList.Node(l, element, null);
         last = newNode;
@@ -107,7 +107,7 @@ public class CustomLinkedList<K,V> {
         size++;
     }
 
-    private void linkBefore(ListNode<K,V> element, CustomLinkedList.Node succ) {
+    private void linkBefore(MapNode<K,V> element, CustomLinkedList.Node succ) {
         final CustomLinkedList.Node pred = succ.prev;
         final CustomLinkedList.Node newNode = new CustomLinkedList.Node(pred, element, succ);
         succ.prev = newNode;

@@ -19,7 +19,7 @@ public class CustomHashTable<K,V> {
         return Math.abs(key % arraySize);
     }
 
-    public void insert(ListNode<K,V> e) {
+    public void insert(MapNode<K,V> e) {
         if (count >= getThreshold())
             rehash();
         int key = e.getKey().hashCode();
@@ -35,7 +35,7 @@ public class CustomHashTable<K,V> {
         count--;
     }
 
-    public ListNode<K,V> find(Object key) {
+    public MapNode<K,V> find(Object key) {
         int hashVal = hashFunc(key.hashCode());
         CustomLinkedList list = hashArray[hashVal];
         return list.getByKey(key);
